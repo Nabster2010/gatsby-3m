@@ -9,8 +9,9 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+import { withTrans } from "../i18n/withTrans"
 
-function SEO({ description, lang, meta, title }) {
+function SEO({ description, lang, meta, title, i18n }) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -32,6 +33,7 @@ function SEO({ description, lang, meta, title }) {
     <Helmet
       htmlAttributes={{
         lang,
+        dir: i18n.language === "en" ? "ltr" : "rtl",
       }}
       title={title}
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
@@ -86,4 +88,4 @@ SEO.propTypes = {
   title: PropTypes.string.isRequired,
 }
 
-export default SEO
+export default withTrans(SEO)
